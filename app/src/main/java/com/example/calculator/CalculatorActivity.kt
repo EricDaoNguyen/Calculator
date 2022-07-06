@@ -3,7 +3,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textview.MaterialTextView
 
@@ -20,6 +19,14 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var button8: Button
     lateinit var button9: Button
     lateinit var button0: Button
+
+    lateinit var buttonAdd: Button
+    lateinit var buttonSubtract: Button
+    lateinit var buttonMultiply: Button
+    lateinit var buttonDivide: Button
+
+//    lateinit var buttonPeriod: Button
+
     lateinit var equation: MaterialTextView
     lateinit var answer: MaterialTextView
 
@@ -28,7 +35,7 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator)
 
-        // View numbers
+        // View buttons
         button1 = findViewById(R.id.button_1)
         button2 = findViewById(R.id.button_2)
         button3 = findViewById(R.id.button_3)
@@ -39,6 +46,14 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
         button8 = findViewById(R.id.button_8)
         button9 = findViewById(R.id.button_9)
         button0 = findViewById(R.id.button_0)
+
+        buttonAdd = findViewById(R.id.button_add)
+        buttonSubtract = findViewById(R.id.button_subtract)
+        buttonMultiply = findViewById(R.id.button_multiply)
+        buttonDivide = findViewById(R.id.button_divide)
+
+//        buttonPeriod = findViewById(R.id.button_period)
+
         equation = findViewById(R.id.equation)
         answer = findViewById(R.id.answer)
 
@@ -52,6 +67,13 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnClickListener(::onClick)
         button8.setOnClickListener(::onClick)
         button9.setOnClickListener(::onClick)
+
+        buttonAdd.setOnClickListener(::onClick)
+        buttonSubtract.setOnClickListener(::onClick)
+        buttonMultiply.setOnClickListener(::onClick)
+        buttonDivide.setOnClickListener(::onClick)
+
+//        buttonPeriod.setOnClickListener(::onClick)
     }
 
     override fun onClick(v: View?) {
@@ -70,7 +92,7 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
             -> {
                 // Inputs appear on screen
                 val num = (v as? Button)?.text.toString().toInt()
-                Log.e(TAG, "onClick: $num was pressed", )
+                Log.e(TAG, "onClick: $num was pressed")
                 val equationText = "${equation.text}${num}"
                 equation.text = equationText
             }
@@ -81,7 +103,17 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button_multiply,
             R.id.button_divide -> {
                 operatorClick(v)
+                val operator = (v as? Button)?.text.toString()
+                val operatorText = "${equation.text}${operator}"
+                equation.text = operatorText
             }
+
+            // Click period
+//            R.id.button_period -> {
+//                val period = (v as? Button)?.text.toString()
+//                val periodText = "${buttonPeriod.text}${period}"
+//                equation.text = periodText
+//            }
 
             // Click equal operator
             R.id.button_result -> {
